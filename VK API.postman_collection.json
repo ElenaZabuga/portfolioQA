@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "4bc37c24-31e5-4946-b3ad-cc1763dcd286",
+		"name": "VK API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Добавить сообщение с картинкой на свою стену",
+			"item": [
+				{
+					"name": "шаг 1. Получение адреса сервера для загрузки﻿ фото на стену пользователя",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"uplUrl\"\r",
+									"var value = pm.response.json().response.upload_url\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "access_token",
+									"value": "{{vkToken}}",
+									"type": "default"
+								},
+								{
+									"key": "v",
+									"value": "{{verApi}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/method/photos.getWallUploadServer",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"method",
+								"photos.getWallUploadServer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "шаг 2. Загрузка фото",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"serverSavePhoto\"\r",
+									"var value = pm.response.json().server\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"var key = \"photoSavePhoto\"\r",
+									"var value = pm.response.json().photo\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"var key = \"hashSavePhoto\"\r",
+									"var value = pm.response.json().hash\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "access_token",
+									"value": "{{vkToken}}",
+									"type": "default"
+								},
+								{
+									"key": "v",
+									"value": "{{verApi}}",
+									"type": "default"
+								},
+								{
+									"key": "user_id",
+									"value": "{{vkUserId}}",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "photo123.jpg"
+								},
+								{
+									"key": "type",
+									"value": "photo",
+									"type": "default"
+								},
+								{
+									"key": "Content-Type",
+									"value": "image/jpeg",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uplUrl}}",
+							"host": [
+								"{{uplUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "шаг 3. Сохранение фото после успешной загрузки",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPhoto\"\r",
+									"var value = pm.response.json().response[0].id\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "access_token",
+									"value": "{{vkToken}}",
+									"type": "default"
+								},
+								{
+									"key": "v",
+									"value": "{{verApi}}",
+									"type": "default"
+								},
+								{
+									"key": "server",
+									"value": "{{serverSavePhoto}}",
+									"type": "default"
+								},
+								{
+									"key": "photo",
+									"value": "{{photoSavePhoto}}",
+									"type": "default"
+								},
+								{
+									"key": "hash",
+									"value": "{{hashSavePhoto}}",
+									"type": "default"
+								},
+								{
+									"key": "user_id",
+									"value": "{{vkUserId}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/method/photos.saveWallPhoto",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"method",
+								"photos.saveWallPhoto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "шаг 4. Добавление сообщения с картинкой на свою стену",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "access_token",
+									"value": "{{vkToken}}",
+									"type": "default"
+								},
+								{
+									"key": "v",
+									"value": "{{verApi}}",
+									"type": "default"
+								},
+								{
+									"key": "to_id",
+									"value": "{{vkUserId}}",
+									"type": "default"
+								},
+								{
+									"key": "owner_id",
+									"value": "{{vkUserId}}",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "all",
+									"type": "default"
+								},
+								{
+									"key": "friends_only",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "attach1_type",
+									"value": "photo",
+									"type": "default"
+								},
+								{
+									"key": "message",
+									"value": "тест",
+									"type": "default"
+								},
+								{
+									"key": "attachments",
+									"value": "photo{{vkUserId}}_{{idPhoto}}",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/method/wall.post",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"method",
+								"wall.post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Список сообщений на стене",
+			"item": [
+				{
+					"name": "Получить список сообщений на стене",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"wallId\"\r",
+									"var value = pm.response.json().response.items[0].id\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "access_token",
+									"value": "{{vkToken}}",
+									"type": "default"
+								},
+								{
+									"key": "v",
+									"value": "{{verApi}}",
+									"type": "default"
+								},
+								{
+									"key": "owner_id",
+									"value": "{{vkUserId}}",
+									"type": "default"
+								},
+								{
+									"key": "filter",
+									"value": "all",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/method/wall.get",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"method",
+								"wall.get"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Просмотреть сообщение на стене",
+			"item": [
+				{
+					"name": "Просмотреть последнее сообщение на стене",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "access_token",
+									"value": "{{vkToken}}",
+									"type": "default"
+								},
+								{
+									"key": "v",
+									"value": "{{verApi}}",
+									"type": "default"
+								},
+								{
+									"key": "posts",
+									"value": "{{vkUserId}}_{{wallId}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/method/wall.getById",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"method",
+								"wall.getById"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.vk.com",
+			"type": "default"
+		},
+		{
+			"key": "verApi",
+			"value": "5.131",
+			"type": "default"
+		},
+		{
+			"key": "vkToken",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "vkUserId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "uplUrl",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "serverSavePhoto",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "photoSavePhoto",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "hashSavePhoto",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "idPhoto",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "wallId",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
