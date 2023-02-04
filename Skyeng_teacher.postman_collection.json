@@ -1,0 +1,2997 @@
+{
+	"info": {
+		"_postman_id": "7c2240cb-1d4c-4c84-a3bb-6866be2d9304",
+		"name": "Кабинет преподавателя Skyeng",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ЛС с полным заполнением",
+			"item": [
+				{
+					"name": "Создание ЛС (все поля заполнены валидными данными)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание для события ЗЕсобытие\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor4}}\",\r\n    \"color\": \"{{EvColor4}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. названия/описания/даты/времени/цвета)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"ЗЕсобытие изм\",\r\n    \"description\": \"измененное описание для события ЗЕсобытие\",\r\n    \"backgroundColor\": \"{{EvBgColor3}}\",\r\n    \"color\": \"{{EvColor3}}\",\r\n    \"startAt\": \"{{dataEventPast}}T18:30:00+03:00\",\r\n    \"endAt\": \"{{dataEventPast}}T19:30:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС (из прошлого)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление несуществующего ЛС (повторное)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Not deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].error.code).to.eql(\"domain_error\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с названием на кириллице",
+			"item": [
+				{
+					"name": "Создание ЛС (название на кириллице, в будущем)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. только название)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt \r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"ЗЕсобытие изм\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС (из будущего)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с названием на латинице",
+			"item": [
+				{
+					"name": "Создание ЛС (название на латинице, в настоящем)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"eventZE\",\r\n    \"description\": \"short description of the event\",\r\n    \"startAt\": \"{{dataEventСur}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventСur}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor2}}\",\r\n    \"color\": \"{{EvColor2}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (без изменения полей)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"eventZE\",\r\n    \"description\": \"short description of the event\",\r\n    \"backgroundColor\": \"{{EvBgColor2}}\",\r\n    \"color\": \"{{EvColor2}}\",\r\n    \"startAt\": \"{{dataEventСur}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventСur}}T18:30:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС (из настоящего)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с названием в 1 символ",
+			"item": [
+				{
+					"name": "Создание ЛС (название в 1 символ)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"з\",\r\n    \"description\": \"описание для события\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. только цвета)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"з\",\r\n    \"description\": \"описание для события\",\r\n    \"backgroundColor\": \"{{EvBgColor4}}\",\r\n    \"color\": \"{{EvColor4}}\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с названием из 40 символов",
+			"item": [
+				{
+					"name": "Создание ЛС (название в 1 символ)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"тест название события из сорока символов\",\r\n    \"description\": \"описание для события\",\r\n    \"startAt\": \"{{dataEventСur}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventСur}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. дату в далекое будущее)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"тест название события из сорока символов\",\r\n    \"description\": \"описание для события\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\",\r\n    \"startAt\": \"{{dataEventFut2}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut2}}T18:30:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с названием, включающим пробелы",
+			"item": [
+				{
+					"name": "Создание ЛС (название, включающее пробелы)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕ ежедневное событие\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с названием, содержащим спецсимволы",
+			"item": [
+				{
+					"name": "Создание ЛС (название, содержащее спецсимволы)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕ урок №5\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с описанием со ссылкой",
+			"item": [
+				{
+					"name": "Создание ЛС (описание со ссылкой)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"требования https://skyengpublic.notion.site/282e0bc0c4c342bd8081a8c34fcec026\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor3}}\",\r\n    \"color\": \"{{EvColor3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. только описание)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание изменено\",\r\n    \"backgroundColor\": \"{{EvBgColor3}}\",\r\n    \"color\": \"{{EvColor3}}\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с описанием, содержащим маркдауны",
+			"item": [
+				{
+					"name": "Создание ЛС (описание, содержащее маркдауны)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание ~~Зачёркнутый текст~~\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor3}}\",\r\n    \"color\": \"{{EvColor3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с описанием, содержащим спецсимволы",
+			"item": [
+				{
+					"name": "Создание ЛС (описание, содержащее спецсимволы)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"информация *** была усвоена на 60%, продолжим обучение!\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor3}}\",\r\n    \"color\": \"{{EvColor3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с описанием на латинице",
+			"item": [
+				{
+					"name": "Создание ЛС (описание на латинице)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"short description of the event\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor3}}\",\r\n    \"color\": \"{{EvColor3}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с малой длительностью",
+			"item": [
+				{
+					"name": "Создание ЛС (с малой длительностью)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание для события\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:10:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. дату в далекое прошлое)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание для события\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\",\r\n    \"startAt\": \"{{dataEventPast2}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventPast2}}T18:10:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с большой длительностью",
+			"item": [
+				{
+					"name": "Создание ЛС (с большой длительностью)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание для события\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T21:10:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor2}}\",\r\n    \"color\": \"{{EvColor2}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование ЛС (изм. только длительность)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"описание для события\",\r\n    \"backgroundColor\": \"{{EvBgColor2}}\",\r\n    \"color\": \"{{EvColor2}}\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T19:00:00+03:00\",\r\n    \"oldStartAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/updatePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с датой из прошлого - месяц назад",
+			"item": [
+				{
+					"name": "Создание ЛС (с датой из прошлого - месяц назад)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"startAt\": \"{{dataEventPast2}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventPast2}}T18:10:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ЛС с датой из будущего - через месяц",
+			"item": [
+				{
+					"name": "Создание ЛС (с датой из будущего - через месяц)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idEvent\"\r",
+									"var value = pm.response.json().data.payload.id //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"var key = \"startEvent\"\r",
+									"var value = pm.response.json().data.startAt //Вместо id можно использовать другое поле  json\r",
+									"pm.collectionVariables.set(key, value)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"startAt\": \"{{dataEventFut2}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut2}}T18:10:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors null\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": {{idEvent}},\r\n    \"startAt\": \"{{startEvent}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/removePersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"removePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Невалидные проверки",
+			"item": [
+				{
+					"name": "Создание ЛС (без названия)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Not valid Title\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].error.code).to.eql(\"not_valid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"\",\r\n    \"description\": \"описание для события\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание ЛС (название более 40 символов)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Not valid Title\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].error.code).to.eql(\"not_valid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"название события из более сорока символов\",\r\n    \"description\": \"описание для события\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание ЛС (описание более 500 символов)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Not valid Description\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].error.code).to.eql(\"not_valid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"description\": \"Сложно сказать, почему предприниматели в сети интернет освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, подвергнуты целой серии независимых исследований. Но акционеры крупнейших компаний являются только методом политического участия и преданы социально-демократической анафеме. Предварительные выводы неутешительны: перспективное планирование, в своём классическом представлении, допускает внедрение новых принципов формирования материально-технической и кадровой базы.\",\r\n    \"startAt\": \"{{dataEventFut}}T18:00:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T18:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание ЛС (с некорректной датой - окончание раньше начала)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Not valid Data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].error.code).to.eql(\"domain_error\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"startAt\": \"{{dataEventFut}}T23:30:00+03:00\",\r\n    \"endAt\": \"{{dataEventFut}}T00:30:00+03:00\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание ЛС (с неустановленной датой)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Not valid Data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].error.code).to.eql(\"not_valid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "{{MyCookie}}",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{tokenGlobal}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ЗЕсобытие\",\r\n    \"startAt\": \"\",\r\n    \"endAt\": \"\",\r\n    \"backgroundColor\": \"{{EvBgColor1}}\",\r\n    \"color\": \"{{EvColor1}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v2/schedule/createPersonal",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v2",
+								"schedule",
+								"createPersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Получение расписания",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "{{MyCookie}}",
+						"type": "default"
+					},
+					{
+						"key": "token",
+						"value": "{{tokenGlobal}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"from\": \"2023-01-16T00:00:00+03:00\",\r\n    \"till\": \"2023-01-22T00:00:00+03:00\",\r\n    \"onlyTypes\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/v2/schedule/events",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v2",
+						"schedule",
+						"events"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api-teachers.skyeng.ru",
+			"type": "default"
+		},
+		{
+			"key": "MyCookie",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "tokenGlobal",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "idEvent",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "startEvent",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "dataEventPast2",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "dataEventPast",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "dataEventСur",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "dataEventFut",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "dataEventFut2",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvColor1",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvBgColor1",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvColor2",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvBgColor2",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvColor3",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvBgColor3",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvColor4",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "EvBgColor4",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
